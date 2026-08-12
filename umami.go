@@ -34,7 +34,7 @@ type Config struct {
 
 	// UmamiHost is the URL of the Umami instance.
 	UmamiHost string `json:"umamiHost"`
-	// UmamiToken is an API KEY, which is optional, but either UmamiToken or Websites should be set.
+	// UmamiToken is an API key, which is optional, but either UmamiToken or Websites should be set.
 	UmamiToken string `json:"umamiToken"`
 	// UmamiUsername could be provided as an alternative to UmamiToken, used to retrieve the token.
 	UmamiUsername string `json:"umamiUsername"`
@@ -59,7 +59,7 @@ type Config struct {
 
 	// IgnoreUserAgents is a list of user agents to ignore.
 	IgnoreUserAgents []string `json:"ignoreUserAgents"`
-	// IgnoreURLs is a list of request urls to ignore, each string is converted to RegExp and paths matched against it.
+	// IgnoreURLs is a list of request URLs to ignore, each string is converted to RegExp and paths matched against it.
 	IgnoreURLs []string `json:"ignoreURLs"`
 	// IgnoreHosts is a list of hosts to ignore.
 	IgnoreHosts []string `json:"ignoreHosts"`

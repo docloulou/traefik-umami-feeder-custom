@@ -8,7 +8,7 @@ was inspired by the [Plausible Feeder Traefik Plugin](https://github.com/safing/
 ## Introduction
 
 This plugin integrates your Traefik-proxied services with Umami, a simple, fast, privacy-focused analytics solution. It
-captures basic request information (path, user-agent, referrer, screen size, IP) and forwards it to your Umami instance,
+captures basic request information (path, user-agent, referrer, language, IP) and forwards it to your Umami instance,
 enabling server-side analytics.
 
 Key features:
@@ -28,7 +28,7 @@ experimental:
   plugins:
     umami-feeder:
       moduleName: github.com/astappiev/traefik-umami-feeder
-      version: v1.4.0 # Replace with the latest version
+      version: v1.4.1 # Replace with the latest version
 ```
 
 ### Step 2. Configure the middleware
@@ -73,7 +73,7 @@ Apply the [configured middleware](https://doc.traefik.io/traefik/routing/routers
 you want to track with Umami. This is also done in your **dynamic configuration**.
 
 Remember to use the
-correct [provider namespace](https://doc.traefik.io/traefik/providers/overview/#provider-namespace)  (e.g., `@file` if
+correct [provider namespace](https://doc.traefik.io/traefik/providers/overview/#provider-namespace) (e.g., `@file` if
 your middleware is defined in a file, `@docker` if defined via Docker labels).
 
 **Example using Docker labels:**
@@ -111,6 +111,8 @@ entryPoints:
 | `enabled`           | `true`          | `bool`     | Set to `false` to disable the plugin.                                                                                                                                                                        |
 | `debug`             | `false`         | `bool`     | Set to `true` for verbose logging. Useful for troubleshooting as plugins don't inherit Traefik's global log level.                                                                                           |
 | `queueSize`         | `1000`          | `int`      | Maximum number of tracking events to queue before sending to the Umami server.                                                                                                                               |
+| `batchSize`         | `20`            | `int`      | Number of events submitted to Umami together in one request.                                                                                                                                                 |
+| `batchMaxWait`      | `5s`            | `duration` | Maximum time to wait before submitting a batch, even if `batchSize` hasn't been reached.                                                                                                                     |
 | `umamiHost`         | **required**    | `string`   | URL of your Umami instance, reachable from Traefik (e.g., `http://umami:3000`).                                                                                                                              |
 | `umamiToken`        | -               | `string`   | [Umami API Token](https://umami.is/docs/api/authentication) for authenticating with your Umami instance. Use this *or* `umamiUsername`/`umamiPassword`. Required for automatic website fetching or creation. |
 | `umamiUsername`     | -               | `string`   | Username for Umami authentication. Use this with `umamiPassword` if not using `umamiToken`. Required for automatic website fetching or creation.                                                             |
