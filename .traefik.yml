@@ -1,6 +1,6 @@
 displayName: Traefik Umami Feeder
 
-import: github.com/astappiev/traefik-umami-feeder
+import: github.com/docloulou/traefik-umami-feeder
 type: middleware
 
 summary: A Traefik plugin that feeds Umami Analytics with pageview events
@@ -15,3 +15,4 @@ testData:
   websites:
     domain: websiteId
   createNewWebsites: false
+  distinctIdCookie: ""

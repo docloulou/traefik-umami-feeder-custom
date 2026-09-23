@@ -67,6 +67,8 @@ type Config struct {
 	IgnoreIPs []string `json:"ignoreIPs"`
 	// HeaderIp is the header name associated with the real IP address.
 	HeaderIp string `json:"headerIp"`
+	// DistinctIdCookie is the cookie containing the Umami Distinct ID to forward as payload.id.
+	DistinctIdCookie string `json:"distinctIdCookie"`
 }
 
 // CreateConfig creates the default plugin configuration.
@@ -97,6 +99,7 @@ func CreateConfig() *Config {
 		IgnoreHosts:      []string{},
 		IgnoreIPs:        []string{},
 		HeaderIp:         "X-Real-IP",
+		DistinctIdCookie: "",
 	}
 }
 
@@ -128,6 +131,7 @@ type UmamiFeeder struct {
 	ignoreRegexps    []regexp.Regexp
 	ignorePrefixes   []netip.Prefix
 	headerIp         string
+	distinctIdCookie string
 }
 
 // New creates a new UmamiFeeder plugin.
@@ -159,6 +163,7 @@ func New(ctx context.Context, next http.Handler, config *Config, name string) (h
 		ignoreRegexps:    []regexp.Regexp{},
 		ignorePrefixes:   []netip.Prefix{},
 		headerIp:         config.HeaderIp,
+		distinctIdCookie: config.DistinctIdCookie,
 	}
 
 	if h.isEnabled {

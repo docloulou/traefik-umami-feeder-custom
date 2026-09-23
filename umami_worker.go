@@ -17,6 +17,7 @@ type UmamiEvent struct {
 	Ip        string         `json:"ip,omitempty"`        // IP address
 	UserAgent string         `json:"userAgent,omitempty"` // User agent
 	Timestamp int64          `json:"timestamp,omitempty"` // UNIX timestamp in seconds
+	Id        string         `json:"id,omitempty"`        // Umami Distinct ID
 	Data      map[string]any `json:"data,omitempty"`      // Additional data for the event
 	// Name      string         `json:"name,omitempty"`      // Event name (for custom events)
 	// Screen    string         `json:"screen,omitempty"`    // Screen resolution (ex. "1920x1080")
@@ -46,6 +47,12 @@ func (h *UmamiFeeder) submitToFeed(req *http.Request, statusCode int) {
 		UserAgent: req.Header.Get("User-Agent"),
 		Timestamp: time.Now().Unix(),
 		Website:   websiteId,
+	}
+
+	if h.distinctIdCookie != "" {
+		if cookie, err := req.Cookie(h.distinctIdCookie); err == nil {
+			event.Id = cookie.Value
+		}
 	}
 
 	if statusCode >= 400 {

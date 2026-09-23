@@ -27,8 +27,8 @@ Declare the plugin in your Traefik **static configuration**.
 experimental:
   plugins:
     umami-feeder:
-      moduleName: github.com/astappiev/traefik-umami-feeder
-      version: v1.4.1 # Replace with the latest version
+      moduleName: github.com/docloulou/traefik-umami-feeder
+      version: v1.4.1-fork
 ```
 
 ### Step 2. Configure the middleware
@@ -65,6 +65,9 @@ http:
 
           # Optional: allow creation of new websites in Umami
           createNewWebsites: true
+
+          # Optional: forward this cookie value as Umami payload.id (Distinct ID)
+          distinctIdCookie: "__Host-umami_id"
 ```
 
 ### Step 3. Attach the middleware to your routers
@@ -128,6 +131,7 @@ entryPoints:
 | `ignoreHosts`       | `[]`            | `string[]` | A list of hostnames to ignore (e.g., `["localhost", "internal.example.com"]`). Matching is done using `strings.EqualFold`.                                                                                   |
 | `ignoreIPs`         | `[]`            | `string[]` | A list of IP addresses or CIDR ranges to ignore (e.g., `["127.0.0.1", "10.0.0.1/16"]`). Matched with `netip.ParsePrefix.Contains`.                                                                           |
 | `headerIp`          | `X-Real-IP`     | `string`   | The HTTP header to inspect for the client's real IP address, typically used when Traefik is behind another proxy.                                                                                            |
+| `distinctIdCookie`  | -               | `string`   | Optional cookie name whose value is forwarded to Umami as `payload.id`, enabling Distinct ID tracking for authenticated users.                                                                              |
 
 ## Contributing
 

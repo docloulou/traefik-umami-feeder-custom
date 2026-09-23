@@ -152,3 +152,53 @@ func assertIgnoreUa(t *testing.T, plugin *UmamiFeeder, expected bool, ua string)
 		t.Fatalf("expected %v for %s", expected, ua)
 	}
 }
+
+
+func TestSubmitToFeedDistinctIdCookie(t *testing.T) {
+	feeder := &UmamiFeeder{
+		queue:            make(chan *UmamiEvent, 1),
+		websites:         map[string]string{"example.com": "website-id"},
+		distinctIdCookie: "__Host-umami_id",
+	}
+
+	req, err := http.NewRequestWithContext(context.Background(), http.MethodGet, "https://example.com/account", nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+	req.AddCookie(&http.Cookie{Name: "__Host-umami_id", Value: "user-distinct-id"})
+
+	feeder.submitToFeed(req, http.StatusOK)
+
+	select {
+	case event := <-feeder.queue:
+		if event.Id != "user-distinct-id" {
+			t.Fatalf("expected distinct id %q, got %q", "user-distinct-id", event.Id)
+		}
+	default:
+		t.Fatal("expected an event to be queued")
+	}
+}
+
+func TestSubmitToFeedWithoutDistinctIdCookie(t *testing.T) {
+	feeder := &UmamiFeeder{
+		queue:            make(chan *UmamiEvent, 1),
+		websites:         map[string]string{"example.com": "website-id"},
+		distinctIdCookie: "__Host-umami_id",
+	}
+
+	req, err := http.NewRequestWithContext(context.Background(), http.MethodGet, "https://example.com/", nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	feeder.submitToFeed(req, http.StatusOK)
+
+	select {
+	case event := <-feeder.queue:
+		if event.Id != "" {
+			t.Fatalf("expected empty distinct id, got %q", event.Id)
+		}
+	default:
+		t.Fatal("expected an event to be queued")
+	}
+}
