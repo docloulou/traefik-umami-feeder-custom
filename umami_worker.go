@@ -50,7 +50,8 @@ func (h *UmamiFeeder) submitToFeed(req *http.Request, statusCode int) {
 	}
 
 	if h.distinctIdCookie != "" {
-		if cookie, err := req.Cookie(h.distinctIdCookie); err == nil {
+		cookie, err := req.Cookie(h.distinctIdCookie)
+		if err == nil {
 			event.Id = cookie.Value
 		}
 	}

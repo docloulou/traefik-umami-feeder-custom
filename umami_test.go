@@ -153,7 +153,6 @@ func assertIgnoreUa(t *testing.T, plugin *UmamiFeeder, expected bool, ua string)
 	}
 }
 
-
 func TestSubmitToFeedDistinctIdCookie(t *testing.T) {
 	feeder := &UmamiFeeder{
 		queue:            make(chan *UmamiEvent, 1),
@@ -165,7 +164,14 @@ func TestSubmitToFeedDistinctIdCookie(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	req.AddCookie(&http.Cookie{Name: "__Host-umami_id", Value: "user-distinct-id"})
+	req.AddCookie(&http.Cookie{
+		Name:     "__Host-umami_id",
+		Value:    "user-distinct-id",
+		Path:     "/",
+		Secure:   true,
+		HttpOnly: true,
+		SameSite: http.SameSiteLaxMode,
+	})
 
 	feeder.submitToFeed(req, http.StatusOK)
 
