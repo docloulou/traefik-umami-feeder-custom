@@ -1,6 +1,6 @@
-displayName: Traefik Umami Feeder
+displayName: Traefik Umami Feeder Custom
 
-import: github.com/docloulou/traefik-umami-feeder
+import: github.com/docloulou/traefik-umami-feeder-custom
 type: middleware
 
 summary: A Traefik plugin that feeds Umami Analytics with pageview events
