@@ -1,4 +1,4 @@
-# Traefik Umami Feeder Plugin
+# Traefik Umami Feeder Custom
 
 A [Traefik](https://traefik.io/traefik/) middleware plugin that sends visits to your [Umami](https://umami.is) instance.
 
@@ -27,8 +27,8 @@ Declare the plugin in your Traefik **static configuration**.
 experimental:
   plugins:
     umami-feeder:
-      moduleName: github.com/docloulou/traefik-umami-feeder
-      version: v1.4.1-fork
+      moduleName: github.com/docloulou/traefik-umami-feeder-custom
+      version: v1.4.2
 ```
 
 ### Step 2. Configure the middleware

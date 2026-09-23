@@ -24,7 +24,7 @@ services:
       - ./traefik.yml:/traefik.yml:ro
       - ./config.yml:/config/config.yml:ro
       # mount plugin
-      - ../:/plugins-local/src/github.com/astappiev/traefik-umami-feeder
+      - ../:/plugins-local/src/github.com/docloulou/traefik-umami-feeder-custom
 
     restart: unless-stopped
 

@@ -27,4 +27,4 @@ api:
 experimental:
   localPlugins:
     umami-feeder:
-      moduleName: "github.com/astappiev/traefik-umami-feeder"
+      moduleName: "github.com/docloulou/traefik-umami-feeder-custom"

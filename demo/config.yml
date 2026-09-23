@@ -9,3 +9,5 @@ http:
           umamiPassword: "umami"
           umamiTeamId: "8e39c6ad-e44a-4d3e-be98-015db2d62d40"
           createNewWebsites: true
+          # Optional: forward this cookie as Umami payload.id
+          # distinctIdCookie: "__Host-umami_id"
