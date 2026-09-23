@@ -14,7 +14,8 @@ enabling server-side analytics.
 Key features:
 
 - Stupidly simple to set up — one middleware can be used for all websites
-- Server-Side Tracking, no JS or Cookies bullshit
+- Server-side tracking with no JavaScript required
+- Optional cookie-based Umami Distinct ID support for authenticated users
 - Fast and private
 
 ## Configuration
@@ -28,7 +29,7 @@ experimental:
   plugins:
     umami-feeder:
       moduleName: github.com/docloulou/traefik-umami-feeder-custom
-      version: v1.4.2
+      version: v1.4.3
 ```
 
 ### Step 2. Configure the middleware

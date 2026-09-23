@@ -1,18 +1,13 @@
 displayName: Traefik Umami Feeder Custom
 
 import: github.com/docloulou/traefik-umami-feeder-custom
+basePkg: traefik_umami_feeder
 type: middleware
 
 summary: A Traefik plugin that feeds Umami Analytics with pageview events
 iconPath: .assets/icon.png
 
 testData:
-  umamiHost: ""
-  umamiToken: ""
-  umamiUsername: ""
-  umamiPassword: ""
-  umamiTeamId: ""
+  umamiHost: "http://umami:3000"
   websites:
-    domain: websiteId
-  createNewWebsites: false
-  distinctIdCookie: ""
+    example.com: "d4617504-241c-4797-8eab-5939b367b3ad"
